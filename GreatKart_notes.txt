@@ -147,7 +147,7 @@ insert to store/urls=> path('', views.store, name='store'),
 insert to store/views => def store(request): => render => store/store.html
 
 fetch products by category
-insert => path('<slug:category_slug>/', views.store, name='products_by_category'),
+insert => path('category/<slug:category_slug>/', views.store, name='products_by_category'),
 into urlpatterns in store/urls
 edit def store
 def store(request, category_slug=None): => if category is in url or not
@@ -171,7 +171,7 @@ in templates/store/store.html insert below in line 33 - 35
 
 create product detail page
 insert below in store/urls.py
-path('<slug:category_slug>/<slug:product_slug>/', views.product_detail, name='product_detail'),
+path('category/<slug:category_slug>/<slug:product_slug>/', views.product_detail, name='product_detail'),
 create def product_detail(request, category_slug, product_slug): => store/views.py
 
 create def get_url in store/models.py Product
@@ -180,15 +180,42 @@ in templates/store/store.html insert below in line 132|135
 <a href="{{ product.get_url }}"....
 <a href="{{ product.get_url }}"....
 
+create new repository => greatkart-django
+$ git init => creates .git folder
+create .gitignore file 
+go to https://www.toptal.com/developers/gitignore/api/django copy text
+paste text in .gitignore file 
+$ git add -A
+$ git remote add origin https://github.com/ogonkem/greatkart-django.git
+$ git branch -M main
+$ git push -u origin main
+git status => checks updates
 
+$ python manage.py startapp carts
+insert 'carts', in INSTALLED_APPS in greatkart/settings.py
+insert path('cart/', include('cart.urls')), in greatkart/urls.py
+create carts\urls.py => path('', views.cart, name='cart'),
+insert to carts/views => def cart(request): => render => store/cart.html
+create Cart, CartItem model in carts/models.py
+register Cart, CartItem model in carts/admin.py
+create _cart_id (gets session_key as cart id), add_cart in carts/views.py
+<a href="{% url 'add_cart' single_product.id %}" ... to Add to cart in product_details.html
+insert path('add_cart/<int:product_id>/', views.add_cart, name='add_cart'), into carts\urls.py
 
+search functionality
+insert below in store/urls.py
+path('search/', views.search, name='search'),
+create def search(request): in store/views.py
 
+class Variation(models.Model):
+Variation_category_choice =(('color', 'color'),....) # select option values in Variation_category = models.CharField(..., choices=Variation_category_choice)
+class VariationManager(models.Manager):
 
-
-
-
-
-
+admin.site.register(Variation, VariationAdmin)
+in store/admin.py create VariationAdmin class
+list_display = ('product', 'Variation_category',...) => listed in admin ui
+list_editable = ('is_active',)
+list_filter = ('product', 'Variation_category',...)
 
 
 
