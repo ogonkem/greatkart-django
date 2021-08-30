@@ -218,11 +218,18 @@ list_editable = ('is_active',)
 list_filter = ('product', 'Variation_category',...)
 
 
+$ git add -A
+$ git commit -m "carts and store apps"
 
+eUwqHT8QZBy4aFL
+d8E45SRKsPTck8i
+8diLFyspAF4wFQw
 
-
-
-
+add message tage settings to settings line 140 - 144
+create templates/includes/alerts.html
+add messages.success(request, 'Registration Sucessful.') to accounts/views.py
+{% include 'includes/alerts.html' %} in register.html
+add setTimeout funciton for messages in static/js/scripts.js line 61-63
 
 
 
