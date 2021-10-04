@@ -100,7 +100,7 @@ in settings below static setup
 # media files configuration
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
-in greatkart/urls.py add below to urlpatterns
+in greatkart/urls.py add below urlpatterns
 + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 prepopulate slug field with category_name
@@ -121,7 +121,7 @@ insert 'store', in INSTALLED_APPS in settings.py
 create Product model in store/models.py
 register Products model in store/admin.py
 
-prepopulate slug field with category_name
+prepopulate slug field with product_name
 in store/admin.py create ProductAdmin class
 prepopulated_fields = {'Slug': ('product_name',)}
 list_display = ('product_name', 'price',...) => listed in admin ui
